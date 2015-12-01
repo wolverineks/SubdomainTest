@@ -1,0 +1,547 @@
+  [1m[36m (2.5ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.3ms)[0m  select sqlite_version(*)
+  [1m[36m (2.2ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to CreateBlogs (20151201161749)
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  CREATE TABLE "blogs" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "subdomain" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20151201161749"]]
+  [1m[35m (2.6ms)[0m  commit transaction
+Migrating to CreatePosts (20151201161815)
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  CREATE TABLE "posts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "body" text, "blog_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (0.2ms)[0m  [1mCREATE  INDEX "index_posts_on_blog_id" ON "posts" ("blog_id")[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20151201161815"]]
+  [1m[36m (2.0ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_posts_on_blog_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_posts_on_blog_id' AND type='index'
+[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mSQL (3.6ms)[0m  DELETE FROM "blogs"
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "blogs" ("id", "name", "subdomain", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["id", 1], ["name", "My Example Blog"], ["subdomain", "example"], ["created_at", "2015-12-01 16:32:26.630755"], ["updated_at", "2015-12-01 16:32:26.630755"]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "blogs" ("id", "name", "subdomain", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["id", 2], ["name", "Awesome Blog"], ["subdomain", "awesome"], ["created_at", "2015-12-01 16:32:26.636006"], ["updated_at", "2015-12-01 16:32:26.636006"]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36mSQL (2.2ms)[0m  [1mDELETE FROM "posts"[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "posts" ("id", "blog_id", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["id", 1], ["blog_id", 1], ["title", "An Example of a Post"], ["body", "This is a perfect example of a blog post.  Feel free to reference this example in your other applications.  Note that the author of this blog post does not accept responsibility for the contents of this blog post."], ["created_at", "2015-12-01 16:32:26.648221"], ["updated_at", "2015-12-01 16:32:26.648221"]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "posts" ("id", "blog_id", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)  [["id", 2], ["blog_id", 1], ["title", "Another Example of a Post"], ["body", "This is yet another example of a blog post.  This one is less perfect than the first one."], ["created_at", "2015-12-01 16:32:26.651742"], ["updated_at", "2015-12-01 16:32:26.651742"]]
+  [1m[36m (2.6ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "posts" ("id", "blog_id", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["id", 3], ["blog_id", 2], ["title", "An Utterly Awesome Post"], ["body", "This is a super awesome example of a really good blog post.  You should...like...totally copy this!"], ["created_at", "2015-12-01 16:32:26.655287"], ["updated_at", "2015-12-01 16:32:26.655287"]]
+  [1m[35m (2.6ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "posts" ("id", "blog_id", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)  [["id", 4], ["blog_id", 2], ["title", "Yet Another Utterly Post"], ["body", "This is yet ANOTHER example of a super awesome blog post.  You should totally copy this one as well!"], ["created_at", "2015-12-01 16:32:26.659028"], ["updated_at", "2015-12-01 16:32:26.659028"]]
+  [1m[36m (2.1ms)[0m  [1mcommit transaction[0m
+
+
+Started GET "/" for 127.0.0.1 at 2015-12-01 08:33:00 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/railties-4.2.3/lib/rails/templates/rails/welcome/index.html.erb (1.2ms)
+Completed 200 OK in 12ms (Views: 6.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2015-12-01 08:33:25 -0800
+Processing by Rails::WelcomeController#index as HTML
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/railties-4.2.3/lib/rails/templates/rails/welcome/index.html.erb (0.0ms)
+Completed 200 OK in 1ms (Views: 0.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2015-12-01 08:46:59 -0800
+Processing by BlogsController#index as HTML
+  Parameters: {"subdomain"=>"www"}
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM "blogs" WHERE "blogs"."subdomain" = ?  [["subdomain", "www"]]
+  [1m[36mBlog Load (0.2ms)[0m  [1mSELECT "blogs".* FROM "blogs"[0m
+  Rendered blogs/index.html.erb within layouts/application (28.4ms)
+Completed 500 Internal Server Error in 41ms (ActiveRecord: 0.7ms)
+
+ActionView::Template::Error (undefined method `root_url' for #<#<Class:0x007f98a00ec8e8>:0x007f98a012fee0>):
+    2: 
+    3: <ul>
+    4:   <% @blogs.each do |blog| %>
+    5:     <li><%= link_to blog.name, root_url(subdomain: blog.subdomain) %></li>
+    6:   <% end %>
+    7: </ul>
+  app/views/blogs/index.html.erb:5:in `block in _app_views_blogs_index_html_erb__365802883889482896_70146748675340'
+  app/views/blogs/index.html.erb:4:in `_app_views_blogs_index_html_erb__365802883889482896_70146748675340'
+
+
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_source.erb (4.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.7ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.6ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (15.8ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (0.3ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (10.9ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.3ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (25.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2015-12-01 08:47:20 -0800
+Processing by BlogsController#index as HTML
+  Parameters: {"subdomain"=>"www"}
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "blogs" WHERE "blogs"."subdomain" = ?  [["subdomain", "www"]]
+  [1m[36mBlog Load (0.1ms)[0m  [1mSELECT "blogs".* FROM "blogs"[0m
+  Rendered blogs/index.html.erb within layouts/application (7.1ms)
+Completed 500 Internal Server Error in 14ms (ActiveRecord: 0.2ms)
+
+ActionView::Template::Error (undefined method `root_url' for #<#<Class:0x007f98a00ec8e8>:0x007f98a0298a48>):
+    2: 
+    3: <ul>
+    4:   <% @blogs.each do |blog| %>
+    5:     <li><%= link_to blog.name, root_url(subdomain: blog.subdomain) %></li>
+    6:   <% end %>
+    7: </ul>
+  app/views/blogs/index.html.erb:5:in `block in _app_views_blogs_index_html_erb__365802883889482896_70146748675340'
+  app/views/blogs/index.html.erb:4:in `_app_views_blogs_index_html_erb__365802883889482896_70146748675340'
+
+
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_source.erb (4.0ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.6ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.5ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (14.8ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (10.3ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.3ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (20.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2015-12-01 08:48:09 -0800
+Processing by Rails::WelcomeController#index as HTML
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/railties-4.2.3/lib/rails/templates/rails/welcome/index.html.erb (0.0ms)
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2015-12-01 08:48:15 -0800
+Processing by BlogsController#show as HTML
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "blogs" WHERE "blogs"."subdomain" = ?  [["subdomain", "blogs"]]
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.1ms)
+
+NoMethodError (undefined method `root_url' for #<BlogsController:0x007f98a01f78c8>):
+  app/controllers/application_controller.rb:16:in `get_blog'
+
+
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_source.erb (3.0ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.3ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.7ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (16.0ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (0.3ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (11.0ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.3ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (21.5ms)
+
+
+Started GET "/" for 127.0.0.1 at 2015-12-01 08:48:18 -0800
+Processing by BlogsController#show as HTML
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "blogs" WHERE "blogs"."subdomain" = ?[0m  [["subdomain", "blog"]]
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.1ms)
+
+NoMethodError (undefined method `root_url' for #<BlogsController:0x007f98b255e658>):
+  app/controllers/application_controller.rb:16:in `get_blog'
+
+
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_source.erb (2.6ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.3ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.6ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (14.6ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (0.3ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.1ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (9.6ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.3ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (20.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2015-12-01 08:48:35 -0800
+Processing by BlogsController#show as HTML
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "blogs" WHERE "blogs"."subdomain" = ?  [["subdomain", "example"]]
+  [1m[36mBlog Load (0.1ms)[0m  [1mSELECT  "blogs".* FROM "blogs" WHERE "blogs"."subdomain" = ?  ORDER BY "blogs"."id" ASC LIMIT 1[0m  [["subdomain", "example"]]
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.2ms)
+
+NoMethodError (undefined method `posts' for #<Blog:0x007f98b2aed0d8>):
+  app/controllers/blogs_controller.rb:7:in `show'
+
+
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_source.erb (2.7ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.3ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.6ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (13.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (10.0ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (19.5ms)
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_posts_on_blog_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_posts_on_blog_id' AND type='index'
+[0m
+
+
+Started GET "/" for 127.0.0.1 at 2015-12-01 08:49:09 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by BlogsController#show as HTML
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "blogs" WHERE "blogs"."subdomain" = ?  [["subdomain", "example"]]
+  [1m[36mBlog Load (0.1ms)[0m  [1mSELECT  "blogs".* FROM "blogs" WHERE "blogs"."subdomain" = ?  ORDER BY "blogs"."id" ASC LIMIT 1[0m  [["subdomain", "example"]]
+Completed 500 Internal Server Error in 17ms (ActiveRecord: 0.7ms)
+
+NoMethodError (undefined method `posts' for #<Blog:0x007fb00fa2ce40>):
+  app/controllers/blogs_controller.rb:7:in `show'
+
+
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_source.erb (2.6ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.3ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.6ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (14.0ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (9.9ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.1ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (20.7ms)
+
+
+Started GET "/" for 127.0.0.1 at 2015-12-01 08:54:40 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by BlogsController#show as HTML
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "blogs" WHERE "blogs"."subdomain" = ?  [["subdomain", "example"]]
+  [1m[36mBlog Load (0.1ms)[0m  [1mSELECT  "blogs".* FROM "blogs" WHERE "blogs"."subdomain" = ?  ORDER BY "blogs"."id" ASC LIMIT 1[0m  [["subdomain", "example"]]
+  [1m[35mPost Load (0.2ms)[0m  SELECT "posts".* FROM "posts" WHERE "posts"."blog_id" = ?  [["blog_id", 1]]
+  Rendered blogs/show.html.erb within layouts/application (25.8ms)
+Completed 500 Internal Server Error in 62ms (ActiveRecord: 0.8ms)
+
+ActionView::Template::Error (undefined method `post_path' for #<#<Class:0x007f3a980cde18>:0x007f3a980cd238>):
+     5: 
+     6:   <h3><%= post.title %></h3>
+     7:     <p><%= truncate post.body, length: 160 %></p>
+     8:   <%= link_to "Read More", post %>
+     9: 
+    10: <% end %>
+  app/views/blogs/show.html.erb:8:in `block in _app_views_blogs_show_html_erb___3942424248983883851_69944818184900'
+  app/views/blogs/show.html.erb:4:in `_app_views_blogs_show_html_erb___3942424248983883851_69944818184900'
+
+
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_source.erb (4.1ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (4.9ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (18.6ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.1ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (9.8ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (20.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2015-12-01 08:55:45 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by BlogsController#show as HTML
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "blogs" WHERE "blogs"."subdomain" = ?  [["subdomain", "example"]]
+  [1m[36mBlog Load (0.1ms)[0m  [1mSELECT  "blogs".* FROM "blogs" WHERE "blogs"."subdomain" = ?  ORDER BY "blogs"."id" ASC LIMIT 1[0m  [["subdomain", "example"]]
+  Rendered blogs/show.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 663ms (Views: 634.3ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/assets/blogs.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2015-12-01 08:55:46 -0800
+
+
+Started GET "/assets/posts.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2015-12-01 08:55:46 -0800
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2015-12-01 08:55:46 -0800
+
+
+Started GET "/assets/posts.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2015-12-01 08:55:46 -0800
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for 127.0.0.1 at 2015-12-01 08:55:46 -0800
+
+
+Started GET "/assets/blogs.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2015-12-01 08:55:46 -0800
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for 127.0.0.1 at 2015-12-01 08:55:46 -0800
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2015-12-01 08:55:46 -0800
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2015-12-01 08:55:46 -0800
+
+
+Started GET "/" for 127.0.0.1 at 2015-12-01 08:55:59 -0800
+Processing by BlogsController#show as HTML
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "blogs" WHERE "blogs"."subdomain" = ?  [["subdomain", "awesome"]]
+  [1m[36mBlog Load (0.0ms)[0m  [1mSELECT  "blogs".* FROM "blogs" WHERE "blogs"."subdomain" = ?  ORDER BY "blogs"."id" ASC LIMIT 1[0m  [["subdomain", "awesome"]]
+  Rendered blogs/show.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 35ms (Views: 32.9ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/assets/blogs.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2015-12-01 08:55:59 -0800
+
+
+Started GET "/assets/posts.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2015-12-01 08:55:59 -0800
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2015-12-01 08:55:59 -0800
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for 127.0.0.1 at 2015-12-01 08:55:59 -0800
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for 127.0.0.1 at 2015-12-01 08:55:59 -0800
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2015-12-01 08:55:59 -0800
+
+
+Started GET "/assets/blogs.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2015-12-01 08:55:59 -0800
+
+
+Started GET "/assets/posts.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2015-12-01 08:55:59 -0800
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2015-12-01 08:55:59 -0800
+
+
+Started GET "/" for 127.0.0.1 at 2015-12-01 08:57:59 -0800
+Processing by Rails::WelcomeController#index as HTML
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/railties-4.2.3/lib/rails/templates/rails/welcome/index.html.erb (0.5ms)
+Completed 200 OK in 1ms (Views: 1.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/index.html" for 127.0.0.1 at 2015-12-01 08:58:13 -0800
+
+ActionController::RoutingError (No route matches [GET] "/index.html"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  web-console (2.2.1) lib/web_console/middleware.rb:39:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/wolv/.rubies/ruby-2.2.0/lib/ruby/2.2.0/webrick/httpserver.rb:138:in `service'
+  /home/wolv/.rubies/ruby-2.2.0/lib/ruby/2.2.0/webrick/httpserver.rb:94:in `run'
+  /home/wolv/.rubies/ruby-2.2.0/lib/ruby/2.2.0/webrick/server.rb:294:in `block in start_thread'
+
+
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (0.9ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (0.6ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (5.5ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (22.6ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (10.0ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (19.7ms)
+
+
+Started GET "/blogs/index.html" for 127.0.0.1 at 2015-12-01 08:58:43 -0800
+Processing by BlogsController#index as HTML
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "blogs" WHERE "blogs"."subdomain" = ?  [["subdomain", ""]]
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.1ms)
+
+NoMethodError (undefined method `root_url' for #<BlogsController:0x007fc4483e7038>):
+  app/controllers/application_controller.rb:16:in `get_blog'
+
+
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_source.erb (3.1ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.5ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.7ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (15.5ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (10.3ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (19.8ms)
+
+
+Started GET "/blogs/index.html" for 127.0.0.1 at 2015-12-01 08:59:19 -0800
+Processing by BlogsController#index as HTML
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "blogs" WHERE "blogs"."subdomain" = ?[0m  [["subdomain", "www"]]
+  [1m[35mBlog Load (0.2ms)[0m  SELECT "blogs".* FROM "blogs"
+  Rendered blogs/index.html.erb within layouts/application (11.0ms)
+Completed 500 Internal Server Error in 13ms (ActiveRecord: 0.2ms)
+
+ActionView::Template::Error (undefined method `root_url' for #<#<Class:0x007fc46808b270>:0x007fc448a90ec0>):
+    2: 
+    3: <ul>
+    4:   <% @blogs.each do |blog| %>
+    5:     <li><%= link_to blog.name, root_url(subdomain: blog.subdomain) %></li>
+    6:   <% end %>
+    7: </ul>
+  app/views/blogs/index.html.erb:5:in `block in _app_views_blogs_index_html_erb__3848136507959221154_70240781622220'
+  app/views/blogs/index.html.erb:4:in `_app_views_blogs_index_html_erb__3848136507959221154_70240781622220'
+
+
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_source.erb (4.0ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.6ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.5ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (14.7ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (9.6ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.1ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (18.8ms)
+
+
+Started GET "/blogs/index.html" for 127.0.0.1 at 2015-12-01 09:00:39 -0800
+Processing by BlogsController#index as HTML
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "blogs" WHERE "blogs"."subdomain" = ?[0m  [["subdomain", "sdfgsdfg"]]
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.1ms)
+
+NoMethodError (undefined method `root_url' for #<BlogsController:0x007fc448098490>):
+  app/controllers/application_controller.rb:16:in `get_blog'
+
+
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_source.erb (2.4ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.5ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (14.0ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.1ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (9.4ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.2ms)
+  Rendered /home/wolv/.gem/ruby/2.2.0/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (18.7ms)
+DEPRECATION WARNING: Defining a route where `to` is a controller without an action is deprecated. Please change `to: '/'` to `controller: '/'`. (called from block in <top (required)> at /home/wolv/SubdomainTest/config/routes.rb:3)
+
+
+Started GET "/blogs/index.html" for 127.0.0.1 at 2015-12-01 09:02:19 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by BlogsController#index as HTML
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "blogs" WHERE "blogs"."subdomain" = ?  [["subdomain", "sdfgsdfg"]]
+Redirected to http://www.vcap.me:3000/
+Filter chain halted as :get_blog rendered or redirected
+Completed 302 Found in 14ms (ActiveRecord: 0.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2015-12-01 09:02:19 -0800
+Processing by BlogsController#index as HTML
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "blogs" WHERE "blogs"."subdomain" = ?[0m  [["subdomain", "www"]]
+  [1m[35mBlog Load (0.1ms)[0m  SELECT "blogs".* FROM "blogs"
+  Rendered blogs/index.html.erb within layouts/application (4.4ms)
+Completed 200 OK in 120ms (Views: 118.6ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/blogs.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2015-12-01 09:02:20 -0800
+
+
+Started GET "/assets/posts.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2015-12-01 09:02:20 -0800
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2015-12-01 09:02:20 -0800
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for 127.0.0.1 at 2015-12-01 09:02:20 -0800
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for 127.0.0.1 at 2015-12-01 09:02:20 -0800
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2015-12-01 09:02:20 -0800
+
+
+Started GET "/assets/blogs.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2015-12-01 09:02:20 -0800
+
+
+Started GET "/assets/posts.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2015-12-01 09:02:20 -0800
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2015-12-01 09:02:20 -0800
+
+
+Started GET "/" for 127.0.0.1 at 2015-12-01 09:02:37 -0800
+Processing by BlogsController#index as HTML
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "blogs" WHERE "blogs"."subdomain" = ?[0m  [["subdomain", "ww"]]
+Redirected to http://www.vcap.me:3000/
+Filter chain halted as :get_blog rendered or redirected
+Completed 302 Found in 1ms (ActiveRecord: 0.1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2015-12-01 09:02:37 -0800
+Processing by BlogsController#index as HTML
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "blogs" WHERE "blogs"."subdomain" = ?  [["subdomain", "www"]]
+  [1m[36mBlog Load (0.1ms)[0m  [1mSELECT "blogs".* FROM "blogs"[0m
+  Rendered blogs/index.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 35ms (Views: 34.3ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2015-12-01 09:02:42 -0800
+Processing by BlogsController#index as HTML
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "blogs" WHERE "blogs"."subdomain" = ?  [["subdomain", "example"]]
+  [1m[36mBlog Load (0.1ms)[0m  [1mSELECT  "blogs".* FROM "blogs" WHERE "blogs"."subdomain" = ?  ORDER BY "blogs"."id" ASC LIMIT 1[0m  [["subdomain", "example"]]
+  [1m[35mBlog Load (0.1ms)[0m  SELECT "blogs".* FROM "blogs"
+  Rendered blogs/index.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 24ms (Views: 21.9ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2015-12-01 09:02:44 -0800
+Processing by BlogsController#index as HTML
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "blogs" WHERE "blogs"."subdomain" = ?[0m  [["subdomain", "awesome"]]
+  [1m[35mBlog Load (0.0ms)[0m  SELECT  "blogs".* FROM "blogs" WHERE "blogs"."subdomain" = ?  ORDER BY "blogs"."id" ASC LIMIT 1  [["subdomain", "awesome"]]
+  [1m[36mBlog Load (0.1ms)[0m  [1mSELECT "blogs".* FROM "blogs"[0m
+  Rendered blogs/index.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 39ms (Views: 37.1ms | ActiveRecord: 0.2ms)
